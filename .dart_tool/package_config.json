@@ -305,10 +305,10 @@
       "name": "unused_assets",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-06-20T16:43:12.066649Z",
+  "generated": "2024-06-20T16:48:42.974146Z",
   "generator": "pub",
   "generatorVersion": "3.4.4",
   "pubCache": "file:///Users/aovooyov/.pub-cache"
