@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:change_case/change_case.dart';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
+import 'package:path/path.dart';
 
 void findUnusedGen() {
   final root = Directory.current.path;
@@ -24,12 +26,18 @@ Set<String> getAssets(String path) {
   }
 
   final properties = <String>{};
+  final regExp = RegExp(r'''(["'])(?:\\.|(?!\1).)*\1''');
+
   for (final file in assets) {
-    final lines = File(file).readAsLinesSync();
-    for (final line in lines) {
-      if (line.contains(' get ')) {
-        final property = line.trim().split(' ')[2].split(' ')[0];
-        properties.add('.$property');
+    final fileContent = File(file).readAsStringSync();
+    final matches = regExp.allMatches(fileContent);
+
+    for (final match in matches) {
+      final matchString = match.group(0);
+      if (matchString != null) {
+        final assetPath = withoutExtension(matchString);
+        final asset = assetPath.split('/').map((s) => s.toCamelCase()).join('.');
+        properties.add(asset.toUpperFirstCase());
       }
     }
   }
@@ -76,3 +84,22 @@ Set<String> findUnusedAssets(Set<String> assets, List<String> files) {
 
   return unusedAssets;
 }
+
+// String convertClassName(String input) {
+//   final regExp = RegExp(r'(?=[A-Z])');
+//   List<String> words = input.split(regExp).skip(1).where((word) => word != 'Gen').toList();
+
+//   if (words.isEmpty) {
+//     return input;
+//   }
+
+//   String result = words.first;
+//   if (words.length > 1) {
+//     // result += '.${words.skip(1).map((word) => word.toLowerCase()).join('.')}';
+//     List<String> rest = words.sublist(1, words.length - 1).map((word) => word.toLowerCase()).toList();
+//     rest.add(words.last); // Добавляем последнее слово без изменений
+//     result += '.${rest.join('.')}';
+//   }
+
+//   return result;
+// }
