@@ -1,6 +1,7 @@
 import 'package:args/args.dart';
 
-import 'unused_assets_lib.dart';
+import 'unused_assets_i10n.dart';
+import 'unused_assets_gen.dart';
 
 const String version = '0.0.1';
 
@@ -59,6 +60,9 @@ void main(List<String> arguments) {
       switch (rest) {
         case 'i10n':
           findUnusedi10n();
+          break;
+        case 'gen':
+          findUnusedGen();
           break;
         default:
           print('Unknown command: $rest');
