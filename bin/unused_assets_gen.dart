@@ -84,22 +84,3 @@ Set<String> findUnusedAssets(Set<String> assets, List<String> files) {
 
   return unusedAssets;
 }
-
-// String convertClassName(String input) {
-//   final regExp = RegExp(r'(?=[A-Z])');
-//   List<String> words = input.split(regExp).skip(1).where((word) => word != 'Gen').toList();
-
-//   if (words.isEmpty) {
-//     return input;
-//   }
-
-//   String result = words.first;
-//   if (words.length > 1) {
-//     // result += '.${words.skip(1).map((word) => word.toLowerCase()).join('.')}';
-//     List<String> rest = words.sublist(1, words.length - 1).map((word) => word.toLowerCase()).toList();
-//     rest.add(words.last); // Добавляем последнее слово без изменений
-//     result += '.${rest.join('.')}';
-//   }
-
-//   return result;
-// }
