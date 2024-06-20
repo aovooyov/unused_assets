@@ -25,12 +25,11 @@ Set<String> getAssets(String path) {
 
   final properties = <String>{};
   for (final file in assets) {
-    final content = File(file).readAsStringSync();
-    final lines = content.split('\n');
+    final lines = File(file).readAsLinesSync();
     for (final line in lines) {
       if (line.contains(' get ')) {
         final property = line.trim().split(' ')[2].split(' ')[0];
-        properties.add(property);
+        properties.add('.$property');
       }
     }
   }
