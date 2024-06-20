@@ -45,11 +45,6 @@ void main(List<String> arguments) {
       print('unused_assets version: $version');
       return;
     }
-    if (results.wasParsed('i10n')) {
-      print('i10n');
-      findUnusedi10n();
-      return;
-    }
     if (results.wasParsed('verbose')) {
       verbose = true;
     }
@@ -58,6 +53,18 @@ void main(List<String> arguments) {
     print('Positional arguments: ${results.rest}');
     if (verbose) {
       print('[VERBOSE] All arguments: ${results.arguments}');
+    }
+
+    for (var rest in results.rest) {
+      switch (rest) {
+        case 'i10n':
+          findUnusedi10n();
+          break;
+        default:
+          print('Unknown command: $rest');
+          printUsage(argParser);
+          break;
+      }
     }
   } on FormatException catch (e) {
     // Print usage information if an invalid argument was provided.
